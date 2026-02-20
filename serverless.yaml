@@ -1,3 +1,4 @@
+org: scoobies
 service: pookie-data
 
 provider:
