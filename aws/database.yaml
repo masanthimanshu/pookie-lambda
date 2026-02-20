@@ -3,10 +3,11 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: pookie-data-table
+      BillingMode: PAY_PER_REQUEST
+      ConditionExpression: "attribute_not_exists(id)"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
       KeySchema:
         - AttributeName: id
           KeyType: HASH
-      BillingMode: PAY_PER_REQUEST

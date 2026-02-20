@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "imports": {
-    "#core/*": "./core/*"
+    "#core/*": "./core/*",
+    "#data/*": "./data/*"
   },
   "scripts": {
     "dev": "serverless offline",
@@ -14,7 +15,8 @@
     "@aws-sdk/client-dynamodb": "^3.994.0",
     "@aws-sdk/lib-dynamodb": "^3.994.0",
     "express": "^5.2.1",
-    "serverless-http": "^4.0.0"
+    "serverless-http": "^4.0.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
