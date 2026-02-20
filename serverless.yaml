@@ -24,3 +24,6 @@ functions:
       - httpApi:
           path: /write/{proxy+}
           method: ANY
+
+# resources:
+#   - ${file(aws/resources.yaml)}

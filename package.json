@@ -2,12 +2,17 @@
   "name": "pookie-data",
   "version": "1.0.0",
   "type": "module",
+  "imports": {
+    "#core/*": "./core/*"
+  },
   "scripts": {
     "dev": "serverless offline",
     "deploy": "serverless deploy",
     "lint": "eslint . && prettier . --check"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.994.0",
+    "@aws-sdk/lib-dynamodb": "^3.994.0",
     "express": "^5.2.1",
     "serverless-http": "^4.0.0"
   },
