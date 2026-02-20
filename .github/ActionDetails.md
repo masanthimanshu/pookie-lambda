@@ -1,1 +1,1 @@
-# Information about the CI/CD pipeline
+# Information about the CI/CD pipeline.
