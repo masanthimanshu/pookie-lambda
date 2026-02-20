@@ -1,0 +1,20 @@
+{
+  "name": "pookie-data",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "serverless offline",
+    "lint": "eslint . && prettier . --check"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1",
+    "serverless-offline": "^14.4.0"
+  }
+}

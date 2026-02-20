@@ -1,0 +1,25 @@
+service: pookie-data
+
+provider:
+  name: aws
+  stage: prod
+  region: ap-south-1
+  runtime: nodejs22.x
+
+plugins:
+  - serverless-offline
+
+functions:
+  readApi:
+    handler: src/read/handler.handler
+    events:
+      - httpApi:
+          path: /read/{proxy+}
+          method: ANY
+
+  writeApi:
+    handler: src/write/handler.handler
+    events:
+      - httpApi:
+          path: /write/{proxy+}
+          method: ANY
