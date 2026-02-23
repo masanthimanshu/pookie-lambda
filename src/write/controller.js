@@ -1,4 +1,3 @@
-import { z } from "zod";
 import crypto from "node:crypto";
 import db from "#core/dynamo_client.js";
 import { logger } from "#core/logger.js";
@@ -13,15 +12,12 @@ export const writeController = {
   async writeData(req, res) {
     logger.info("Received write request", { device: req.body.device });
 
-    const schema = z.object({ device: z.string(), status: z.string() });
-
     try {
-      const data = schema.strict().parse(req.body);
       const id = crypto.randomUUID();
 
       const params = {
         TableName: process.env.TABLE_NAME,
-        Item: { id, ...data },
+        Item: { id, ...req.body },
       };
 
       await db.send(new PutCommand(params));

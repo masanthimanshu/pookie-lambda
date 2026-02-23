@@ -7,7 +7,7 @@ import { logger } from "#core/runtime_logs.js";
 
 const validateData = (schema) => (req, res, next) => {
   try {
-    req.validated = schema.strict().parse(req.body);
+    schema.strict().parse(req.body);
     next();
   } catch (error) {
     logger.error("Data validation failed", { error: error.message });
