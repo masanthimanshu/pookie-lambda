@@ -11,7 +11,7 @@ const validateData = (schema) => (req, res, next) => {
     next();
   } catch (error) {
     logger.error("Data validation failed", { error: error.message });
-    res.status(400).send({ error: error.message });
+    res.status(400).send({ error: "Missing required fields" });
   }
 };
 

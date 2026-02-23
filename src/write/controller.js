@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import db from "#core/dynamo_client.js";
-import { logger } from "#core/logger.js";
+import { logger } from "#core/runtime_logs.js";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 export const writeController = {

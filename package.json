@@ -7,9 +7,9 @@
     "#data/*": "./data/*"
   },
   "scripts": {
-    "dev": "serverless offline",
     "deploy": "serverless deploy",
-    "lint": "eslint . && prettier . --check"
+    "lint": "eslint . && prettier . --check",
+    "dev": "serverless offline start --reloadHandler"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.995.0",
