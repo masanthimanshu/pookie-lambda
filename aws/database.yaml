@@ -4,7 +4,6 @@ Resources:
     Properties:
       TableName: pookie-data-table
       BillingMode: PAY_PER_REQUEST
-      ConditionExpression: "attribute_not_exists(id)"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
