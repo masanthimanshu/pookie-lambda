@@ -7,6 +7,17 @@ provider:
   region: ap-south-1
   runtime: nodejs22.x
 
+  iam:
+  role:
+    statements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource:
+          - Fn::GetAtt:
+              - PookieDataTable
+              - Arn
+
   environment:
     TABLE_NAME: pookie-data-table
 
