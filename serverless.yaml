@@ -15,7 +15,7 @@ provider:
           Action:
             - dynamodb:*
           Resource:
-            - fn::GetAtt:
+            - Fn::GetAtt:
                 - PookieDataTable
                 - Arn
 
