@@ -12,11 +12,8 @@ provider:
     statements:
       - Effect: Allow
         Action:
-          - dynamodb:PutItem
-        Resource:
-          - Fn::GetAtt:
-              - PookieDataTable
-              - Arn
+          - dynamodb:*
+        Resource: "*"
 
   environment:
     TABLE_NAME: pookie-data-table
