@@ -1,5 +1,6 @@
 org: scoobies
 service: pookie-data
+frameworkVersion: "4"
 
 provider:
   name: aws
@@ -8,12 +9,15 @@ provider:
   runtime: nodejs22.x
 
   iam:
-  role:
-    statements:
-      - Effect: Allow
-        Action:
-          - dynamodb:*
-        Resource: "*"
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource:
+            - fn::GetAtt:
+                - PookieDataTable
+                - Arn
 
   environment:
     TABLE_NAME: pookie-data-table
