@@ -1,5 +1,8 @@
-import { writeSchema } from "./schema.js";
+import { z } from "zod";
 import { logger } from "#core/runtime_logs.js";
+
+const updateSchema = z.object({ id: z.string(), status: z.string() });
+const writeSchema = z.object({ device: z.string(), status: z.string() });
 
 /**
  * @param {import("zod").ZodObject} schema
@@ -16,3 +19,4 @@ const validateData = (schema) => (req, res, next) => {
 };
 
 export const validateWrite = validateData(writeSchema);
+export const validateUpdate = validateData(updateSchema);

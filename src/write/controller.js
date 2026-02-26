@@ -14,10 +14,12 @@ export const writeController = {
 
     try {
       const id = crypto.randomUUID();
+      const timestamp = new Date().toISOString();
 
       const params = {
         TableName: process.env.TABLE_NAME,
-        Item: { id, ...req.body },
+        Item: { id, ...req.body, timestamp },
+        ConditionExpression: "attribute_not_exists(id)",
       };
 
       await db.send(new PutCommand(params));

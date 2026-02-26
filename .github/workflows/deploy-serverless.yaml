@@ -1,4 +1,4 @@
-name: Deploy Lambda Function
+name: Deploy Serverless Function
 
 on:
   workflow_run:
