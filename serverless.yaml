@@ -6,7 +6,7 @@ provider:
   name: aws
   stage: prod
   region: ap-south-1
-  runtime: nodejs22.x
+  runtime: nodejs24.x
 
   iam:
     role:
