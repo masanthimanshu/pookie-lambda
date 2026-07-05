@@ -2,43 +2,39 @@
 
 Purpose: give immediate, minimal instructions so an AI coding agent can be productive without lookup noise.
 
-Keep edits small and focused. Link to docs rather than copying large sections.
+1. Quick start
 
-1. Quick start (local)
-
-- Install: `npm install`.
-- Run locally (Serverless Offline): `npm run dev` (defined in `package.json`).
-- Deploy: `npm run deploy` (uses Serverless deploy).
+- Install dependencies: `npm install`
+- Run locally: `npm run dev` (`serverless offline start --reloadHandler`)
+- Deploy: `npm run deploy`
 
 2. Key places to inspect
 
-- Service config: [serverless.yaml](serverless.yaml#L1-L4).
-- HTTP entrypoints: [serverless.yaml](serverless.yaml#L29-L42) → `src/read/handler.js`, `src/write/handler.js`.
-- Express factory: [core/create_app.js](core/create_app.js#L1-L8).
-- Dynamo helpers: [core/dynamo_client.js](core/dynamo_client.js#L1-L24).
-- Validation: [data/validator.js](data/validator.js#L1-L22).
-- Infra template: [aws/database.yaml](aws/database.yaml) referenced by [serverless.yaml](serverless.yaml#L44-L45).
+- Service config: [serverless.yaml](serverless.yaml#L1-L4)
+- Handlers: `src/read/handler.js`, `src/write/handler.js`
+- Route definitions: `src/read/routes.js`, `src/write/routes.js`
+- Controller logic: `src/read/controller.js`, `src/write/controller.js`
+- Express app factory: [core/create_app.js](core/create_app.js#L1-L8)
+- DynamoDB client: [core/dynamo_client.js](core/dynamo_client.js#L1-L24)
+- Validation middleware: [data/validator.js](data/validator.js#L1-L22)
+- DynamoDB infra: [aws/database.yaml](aws/database.yaml)
 
 3. Conventions
 
-- Project uses ES modules (`type: module` in `package.json`).
-- Imports use path aliases: `#core/*` and `#data/*` (see `package.json` `imports`).
-- Use the shared `logger` from `core/runtime_logs.js` for runtime logs and errors.
-- Keep routes and handlers small: `src/*/routes.js`, `src/*/controller.js`, `src/*/handler.js`.
+- Uses ES modules (`type: module` in `package.json`)
+- Imports use aliases: `#core/*` and `#data/*`
+- Prefer minimal handlers and controllers; keep routing small and focused
+- Use the shared `logger` from `core/runtime_logs.js` for logs and errors
+- Validate payloads with `data/validator.js` before writing data
 
 4. Editing guidance
 
-- Verify handler routing in `serverless.yaml` when changing endpoints.
-- Run `npm run dev` and exercise endpoints before proposing a PR.
-- If changing data contracts, update `data/validator.js` and add clear error handling.
+- Check `serverless.yaml` handler wiring and `httpApi` catch-all paths when changing endpoints
+- Verify local changes by running `npm run dev` and exercising the API routes
+- Update `data/validator.js` if API request contracts change
 
-5. PR guidance for agents
+5. Notes for agents
 
-- Produce focused changes with tests or manual verification steps.
-- Include commands to reproduce locally in the PR description (e.g., `npm install` then `npm run dev`).
-
-6. Where to add more context
-
-- For broader onboarding, update [AGENTS.md](AGENTS.md) or request a project skill that automates `npm install` + `npm run dev` + simple health checks.
-
-If you want, I can also add automated health-check scripts or a small `README.md` with the same quick-start steps.
+- The write service accepts `POST /write/data` and has a health route at `GET /write/health`
+- The read service currently includes `GET /read/data` and `GET /read/health`
+- This repo does not include a dedicated test suite, so manual endpoint verification is important

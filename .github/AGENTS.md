@@ -4,37 +4,42 @@ Purpose: give AI coding agents the minimal, actionable context needed to work pr
 
 1. Quick project summary
 
-- Service: serverless AWS HTTP APIs for reading and writing pookie data (see [serverless.yaml](serverless.yaml#L1-L4)).
+- Service: Serverless AWS HTTP APIs for reading and writing pookie data, built with Express and DynamoDB.
+- Local dev uses `serverless-offline` and mirrors the Lambda route structure.
 
 2. Key commands
 
-- Install dependencies: `npm install`.
-- Run locally (Serverless Offline): see `scripts` in [package.json](package.json#L9-L11).
-- Deploy: `npm run deploy` (invokes Serverless deploy via [package.json](package.json#L9-L11)).
+- Install dependencies: `npm install`
+- Run locally: `npm run dev`
+- Deploy: `npm run deploy`
 
 3. Architecture & important files
 
-- Entrypoints: handlers defined in [serverless.yaml](serverless.yaml#L29-L42) mapping to `src/read/handler.js` and `src/write/handler.js`.
-- Express app factory: [core/create_app.js](core/create_app.js#L1-L8).
-- Dynamo helpers: [core/dynamo_client.js](core/dynamo_client.js#L1-L24).
-- Validation: request schemas and middleware in [data/validator.js](data/validator.js#L1-L22).
-- DB infra: [aws/database.yaml](aws/database.yaml) is referenced by [serverless.yaml](serverless.yaml#L44-L45).
+- Service config: [serverless.yaml](serverless.yaml)
+- Handlers: `src/read/handler.js`, `src/write/handler.js`
+- Routes: `src/read/routes.js`, `src/write/routes.js`
+- Controllers: `src/read/controller.js`, `src/write/controller.js`
+- Express app factory: [core/create_app.js](core/create_app.js)
+- DynamoDB client: [core/dynamo_client.js](core/dynamo_client.js)
+- Validation middleware: [data/validator.js](data/validator.js)
+- DynamoDB template: [aws/database.yaml](aws/database.yaml)
 
-4. Conventions & agent guidance (concise)
+4. Conventions & agent guidance
 
-- Use ES modules (package.json `type: module`).
-- Imports use path aliases: `#core/*` and `#data/*` mapped in `package.json` `imports`.
-- Prefer small, focused edits. Link to existing files rather than duplicating documentation.
-- When adding runtime console/log messages use the `logger` exported from `core/runtime_logs.js` (used across the codebase).
+- The repo uses ES modules (`type: module` in `package.json`)
+- Imports use path aliases: `#core/*` and `#data/*`
+- Keep handlers, routes, and controllers small and focused
+- Use the shared `logger` from `core/runtime_logs.js` for structured runtime logs and errors
+- Validate request bodies in the write flow with `data/validator.js`
 
 5. What to check before proposing changes
 
-- Verify handler wiring in [serverless.yaml](serverless.yaml#L29-L42) and corresponding `src/*/handler.js` files.
-- Run `npm run dev` to exercise serverless-offline if changing endpoints or routes.
+- Confirm `serverless.yaml` handler wiring and `httpApi` catch-all path definitions
+- Run `npm run dev` and exercise the API routes manually
+- If API payload contracts change, update `data/validator.js`
 
-6. Suggested next customizations
+6. Notes for agents
 
-- Create a `.github/copilot-instructions.md` with onboarding tips for contributors (if desired).
-- Add a small skill that automates common dev tasks: `npm install` + `npm run dev` + health-check the two endpoints.
-
-If you'd like, I can also create `.github/copilot-instructions.md` from this content or add a small skill to automate local dev startup.
+- The write service supports `POST /write/data` and `GET /write/health`
+- The read service supports `GET /read/data` and `GET /read/health`
+- There is no dedicated test suite, so manual verification is the primary validation step
