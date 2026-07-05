@@ -8,22 +8,20 @@
   },
   "scripts": {
     "deploy": "serverless deploy",
-    "lint": "eslint . && prettier . --check",
     "dev": "serverless offline start --reloadHandler"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.1036.0",
-    "@aws-sdk/lib-dynamodb": "^3.1036.0",
+    "@aws-sdk/client-dynamodb": "^3.1079.0",
+    "@aws-sdk/lib-dynamodb": "^3.1079.0",
     "express": "^5.2.1",
     "serverless-http": "^4.0.0",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.2.1",
-    "globals": "^17.5.0",
-    "prettier": "^3.8.3",
-    "serverless": "^4.34.0",
-    "serverless-offline": "^14.5.0"
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
+    "serverless": "^4.38.1",
+    "serverless-offline": "^14.7.4"
   }
 }

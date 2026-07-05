@@ -1,7 +1,5 @@
-import crypto from "node:crypto";
-import db from "#core/dynamo_client.js";
 import { logger } from "#core/runtime_logs.js";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { writeData } from "#core/dynamo_client.js";
 
 export const writeController = {
   /**
@@ -13,19 +11,9 @@ export const writeController = {
     logger.info("Received write request", { device: req.body.device });
 
     try {
-      const id = crypto.randomUUID();
-      const timestamp = new Date().toISOString();
-
-      const params = {
-        TableName: process.env.TABLE_NAME,
-        Item: { id, ...req.body, timestamp },
-        ConditionExpression: "attribute_not_exists(id)",
-      };
-
-      await db.send(new PutCommand(params));
-
+      const { id } = await writeData(req.body);
       logger.info("Successfully processed write request", { id });
-      return res.status(200).send({ id });
+      return res.send({ id });
     } catch (error) {
       logger.error("Error processing write request", { error: error.message });
       return res.status(400).send({ error: error.message });
